@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lock your computer!</title>
+    <style>
+        body, html {
+			height: 100%;
+			margin: 0;
+			overflow: hidden;
+			background-image: url('bg.png');
+			background-size: cover;
+			background-position: center;
+			position: relative;
+		}
+
+        .shiba {
+            position: absolute;
+            transition: 0.5s ease;
+            pointer-events: none;
+        }
+		#canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+		#fullscreenButton {
+			position: absolute;
+			top: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 24px;
+			padding: 15px 30px;
+			z-index: 100;
+		}
+
+        #content-wrapper {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+		}
+
+        #message {
+            font-size: 40px;
+			background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    color: white;
+    padding: 5px; /* Add some padding to create space around the text */
+    display: inline; /* To make the background fit the text */
+        }
+
+		#footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+			font-size: 20px;
+			padding: 20px;
+			background: rgba(0, 0, 0, 0.5);
+			color: #fff;
+		}
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		const messages = [
+			"Oops! You forgot to lock your computer! A Shiba never forgets...",
+			"Your PC is like your home, don't forget to lock it! Shiba is watching you...",
+			"Your Shiba is not amused that you left your PC unlocked!",
+			"Your PC, unlocked? Shiba thought you were more responsible!",
+			"Unlocked PC found, Shiba is preparing to call IT...",
+			"Look at all the secrets we can find on an unlocked PC... said the Shiba!",
+			"Your unlocked PC? It's like leaving the gate open. The Shiba is out!",
+			"Shiba is shocked! Your PC is unlocked like a car with the keys in it...",
+			"Shiba here, reminding you: An unlocked PC is a hacker's best friend!",
+			"Hey, even a Shiba knows to bury its bones. Lock your PC!",
+			"Why did you leave your PC unlocked? Were you fetching a stick?",
+			"Shiba's life rule: Roll over, play dead, and NEVER leave your PC unlocked!",
+			"You left your PC unlocked? Fetch me some treats and I might not tell...",
+			"You know who loves an unlocked PC? Not a Shiba, that's for sure!",
+			"Shiba had one job: Watching your PC. Shiba failed because your PC is unlocked!",
+			"Shiba tried to protect your PC, but it's unlocked. Shiba is not a locksmith!",
+			"Shiba is not a guard dog, but even it knows to protect its bones. Lock your PC!",
+			"Did you leave your PC unlocked or is this a test? Shiba hopes it's a test...",
+			"Shiba is reporting: Human left PC unlocked. Awaiting treat for good behavior!",
+			"Shiba says, 'Unlocked PC? Such irresponsibility deserves a bop on the nose!'",
+			"Shiba thought you knew better, but here we are, with an unlocked PC...",
+			"Unlocked PC detected! Shiba is considering taking over the world now...",
+			"You left your PC unlocked? That's a strange way to play fetch with your data!",
+			"Roses are red, violets are blue, your PC is unlocked, what did you do?",
+			"Roses are red, your screen is askew, isn't it time, to lock your CPU?",
+			"Roses are red, violets are blue, Shiba is crying, because of you.",
+			"Roses are red, violets aren't gray, your PC is unlocked, secure it, we pray.",
+			"Roses are red, violets are blue, leaving your PC open, is a don't, not a do.",
+			"Roses are red, I'm feeling quite blue, because your computer, is accessible to more than just you.",
+			"Roses are red, violets are blue, Shiba is disappointed, you left your PC in full view.",
+			"Roses are red, daisies are white, you forgot to lock your PC, that's not right!",
+			"Roses are red, and here's something new: Someone's prying your PC, because it's not locked by you.",
+			"PC unlocked, the Shiba's despair, secure your data, show you care.",
+	"Here's a tale, sad but true, an unlocked PC, brings the Shiba to you.",
+		];
+
+
+		function goFullScreen() {
+			let elem = document.documentElement;
+			let fullscreenButton = document.getElementById('fullscreenButton');
+
+			if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				} else if (elem.mozRequestFullScreen) { /* Firefox */
+					elem.mozRequestFullScreen();
+				} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+					elem.webkitRequestFullscreen();
+				} else if (elem.msRequestFullscreen) { /* IE/Edge */
+					elem.msRequestFullscreen();
+				}
+				fullscreenButton.innerHTML = "Exit Fullscreen";
+				fullscreenButton.style.zIndex = "0"; // set z-index to 0 when in fullscreen
+			} else {
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+					document.webkitExitFullscreen();
+				} else if (document.msExitFullscreen) { /* IE/Edge */
+					document.msExitFullscreen();
+				}
+				fullscreenButton.innerHTML = "Go Fullscreen";
+				fullscreenButton.style.zIndex = "100"; // set z-index to 100 when not in fullscreen
+			}
+		}
+
+
+        window.onload = function() {
+            document.getElementById('message').innerHTML = messages[Math.floor(Math.random() * messages.length)];
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <button id="fullscreenButton" onclick="goFullScreen()">Go Fullscreen</button>
+    <div id="content-wrapper">
+        <div id="message"></div>  
+    </div>
+    <div id="footer">
+	Click <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUIcmlja3JvbGw%3D">here</a> to call IT and apologise!
+    </div>
+    <script src="shiba.js"></script>
+</body>
+</html>

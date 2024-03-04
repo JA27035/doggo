@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lock your computer!</title>
+    <style>
+        body, html {
+			height: 100%;
+			margin: 0;
+			overflow: hidden;
+			background-image: url('bg.png');
+			background-size: cover;
+			background-position: center;
+			position: relative;
+		}
+
+        .shiba {
+            position: absolute;
+            transition: 0.5s ease;
+            pointer-events: none;
+        }
+		#canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+		#fullscreenButton {
+			position: absolute;
+			top: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 24px;
+			padding: 15px 30px;
+			z-index: 100;
+		}
+
+        #content-wrapper {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+		}
+
+        #message {
+            font-size: 40px;
+			background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    color: white;
+    padding: 5px; /* Add some padding to create space around the text */
+    display: inline; /* To make the background fit the text */
+        }
+
+		#footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+			font-size: 20px;
+			padding: 20px;
+			background: rgba(0, 0, 0, 0.5);
+			color: #fff;
+		}
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		const messages = [
+			"Roses are red, hearts are to send, but an unlocked PC, is not Shiba's friend.",
+			"Roses are red, violets are fine, leave your PC unlocked, and Shiba won't be your Valentine.",
+			"Roses are red, love letters are penned, but without a locked screen, your privacy might end.",
+			"Roses are red, Shiba wears a frown, seeing all these unlocked PCs, all around town.",
+			"Roses are red, doggos like treats, lock up your computer, before Shiba tweets.",
+			"Roses are red, the day is long, an unlocked PC? Doggo says that's wrong.",
+			"Roses are red, doggo's love is true, but not for an unlocked screen, that simply won't do.",
+			"Roses are red, Shiba's on the prowl, lock your computer, to avoid a howl.",
+			"Roses are red, Cupid's arrow zings, but an open PC, no joy it brings.",
+		];
+
+
+
+
+		function goFullScreen() {
+			let elem = document.documentElement;
+			let fullscreenButton = document.getElementById('fullscreenButton');
+
+			if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				} else if (elem.mozRequestFullScreen) { /* Firefox */
+					elem.mozRequestFullScreen();
+				} else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+					elem.webkitRequestFullscreen();
+				} else if (elem.msRequestFullscreen) { /* IE/Edge */
+					elem.msRequestFullscreen();
+				}
+				fullscreenButton.innerHTML = "Exit Fullscreen";
+				fullscreenButton.style.zIndex = "0"; // set z-index to 0 when in fullscreen
+			} else {
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+					document.webkitExitFullscreen();
+				} else if (document.msExitFullscreen) { /* IE/Edge */
+					document.msExitFullscreen();
+				}
+				fullscreenButton.innerHTML = "Go Fullscreen";
+				fullscreenButton.style.zIndex = "100"; // set z-index to 100 when not in fullscreen
+			}
+		}
+
+
+        window.onload = function() {
+            document.getElementById('message').innerHTML = messages[Math.floor(Math.random() * messages.length)];
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <button id="fullscreenButton" onclick="goFullScreen()">Go Fullscreen</button>
+    <div id="content-wrapper">
+        <div id="message"></div>  
+    </div>
+    <div id="footer">
+	Click <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUIcmlja3JvbGw%3D">here</a> to call IT and apologise!
+    </div>
+    <script src="shiba.js"></script>
+</body>
+</html>
